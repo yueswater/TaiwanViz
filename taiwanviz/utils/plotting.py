@@ -1,10 +1,11 @@
-import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import geopandas as gpd
 import pandas as pd
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
-def plot_mainland(ax, mainland: gpd.GeoDataFrame, colors: pd.Series, edgecolor: str = "#fbfbfb"):
+def plot_mainland(
+    ax, mainland: gpd.GeoDataFrame, colors: pd.Series, edgecolor: str = "#fbfbfb"
+):
     """
     Plot the main island of Taiwan.
 
@@ -22,8 +23,15 @@ def plot_mainland(ax, mainland: gpd.GeoDataFrame, colors: pd.Series, edgecolor: 
     mainland.plot(ax=ax, color=colors.loc[mainland.index], edgecolor=edgecolor)
 
 
-def plot_inset(ax, gdf_focus: gpd.GeoDataFrame, colors: pd.Series,
-               title: str, loc: str, edgecolor: str = "#fbfbfb", size: str = "30%"):
+def plot_inset(
+    ax,
+    gdf_focus: gpd.GeoDataFrame,
+    colors: pd.Series,
+    title: str,
+    loc: str,
+    edgecolor: str = "#fbfbfb",
+    size: str = "30%",
+):
     """
     Plot a focused region (e.g., Kinmen, Matsu, Penghu) as an inset.
 

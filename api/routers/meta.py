@@ -2,14 +2,20 @@
 Meta endpoints for palettes, fonts, and health checks.
 """
 
-from fastapi import APIRouter
 import matplotlib.pyplot as plt
+from fastapi import APIRouter
 
-from ..schemas import PalettesResponse, PaletteInfo, FontsResponse, HealthResponse
 from taiwanviz.models.palette import ColorPaletteManager
 from taiwanviz.utils.fonts import list_available_fonts
 
+from ..schemas import FontsResponse, HealthResponse, PaletteInfo, PalettesResponse
+
 router = APIRouter()
+
+
+@router.get("/ping", summary="Health check ping")
+async def ping():
+    return {"status": "ok"}
 
 
 @router.get("/health", response_model=HealthResponse)
@@ -37,12 +43,14 @@ def palettes() -> PalettesResponse:
     """
     out = []
     for name, conf in ColorPaletteManager.palettes.items():
-        out.append(PaletteInfo(
-            name=name,
-            default_edge=conf["default_edge"],
-            default_fill=conf["default_fill"],
-            colors=conf["colors"],
-        ))
+        out.append(
+            PaletteInfo(
+                name=name,
+                default_edge=conf["default_edge"],
+                default_fill=conf["default_fill"],
+                colors=conf["colors"],
+            )
+        )
     return PalettesResponse(palettes=out)
 
 
@@ -57,6 +65,5 @@ def fonts() -> FontsResponse:
         Available TTF files and current default family name.
     """
     return FontsResponse(
-        fonts=list_available_fonts(),
-        default_family=plt.rcParams.get("font.family")
+        fonts=list_available_fonts(), default_family=plt.rcParams.get("font.family")
     )

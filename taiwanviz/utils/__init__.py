@@ -7,26 +7,10 @@ This package provides helpers for:
 - plotting: standardized drawing functions for main map and insets
 """
 
-from .filters import (
-    exclude_islands,
-    get_mainland,
-    get_kinmen,
-    get_matsu,
-)
-
-from .colors import (
-    compute_colors,
-)
-
-from .plotting import (
-    plot_mainland,
-    plot_inset,
-)
-
-from .fonts import (
-    register_all_fonts,
-    set_default_zh_font
-)
+from .colors import compute_colors
+from .filters import exclude_islands, get_kinmen, get_mainland, get_matsu
+from .fonts import register_all_fonts, set_default_zh_font
+from .plotting import plot_inset, plot_mainland
 
 __all__ = [
     # filters

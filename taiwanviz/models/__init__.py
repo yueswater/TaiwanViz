@@ -9,9 +9,3 @@ This package provides core classes for building choropleth maps:
 - AdminLevel, ColorPalette: enums for level and color palettes.
 - ColorPaletteManager: manages available color palettes.
 """
-
-from .base.base import BaseGeoLayer
-from .choropleth import ChoroplethMap
-from .data_input import MapDataInput
-from .enums import AdminLevel, ColorPalette
-from .palette.palette import ColorPaletteManager

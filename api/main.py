@@ -7,12 +7,13 @@ This app exposes endpoints to:
 - List packaged fonts and health status
 """
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from .routers import meta, maps
-from .startup import on_startup, on_shutdown
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from .routers import maps, meta
+from .startup import on_shutdown, on_startup
 
 
 @asynccontextmanager

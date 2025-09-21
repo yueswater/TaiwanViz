@@ -2,18 +2,18 @@
 Rendering routes for choropleth maps.
 """
 
-from io import BytesIO
 import base64
 import os
+from io import BytesIO
 
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse, JSONResponse
 import matplotlib.pyplot as plt
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse, StreamingResponse
 
-from ..schemas import ChoroplethRequest, RenderConfigModel
 from taiwanviz.models.choropleth import ChoroplethMap
 from taiwanviz.models.config import ChoroplethRenderConfig
 
+from ..schemas import ChoroplethRequest, RenderConfigModel
 
 router = APIRouter()
 
@@ -52,9 +52,7 @@ def render_choropleth(req: ChoroplethRequest):
     try:
         # Build map object
         m = ChoroplethMap(
-            level=req.level.value,
-            data=req.data,
-            palette_name=req.palette
+            level=req.level.value, data=req.data, palette_name=req.palette
         )
 
         # Render using config
@@ -85,7 +83,9 @@ def render_choropleth(req: ChoroplethRequest):
             return JSONResponse(content={"url": output_path})
 
         else:
-            raise HTTPException(status_code=400, detail=f"Unsupported response_type: {response_type}")
+            raise HTTPException(
+                status_code=400, detail=f"Unsupported response_type: {response_type}"
+            )
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Rendering failed: {e}")

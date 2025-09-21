@@ -11,17 +11,27 @@ class ColorPaletteManager:
         "nord": {
             "default_edge": "#fbfbfb",
             "default_fill": "lightgray",
-            "colors": ["#2E3440", "#3B4252", "#434C5E",
-                       "#4C566A", "#D8DEE9", "#E5E9F0"],
+            "colors": [
+                "#2E3440",
+                "#3B4252",
+                "#434C5E",
+                "#4C566A",
+                "#D8DEE9",
+                "#E5E9F0",
+            ],
         },
-
         "nord_light": {
             "default_edge": "#2E3440",
             "default_fill": "lightgray",
-            "colors": ["#ECEFF4", "#E5E9F0", "#D8DEE9",
-                       "#81A1C1", "#5E81AC", "#4C566A"],
+            "colors": [
+                "#ECEFF4",
+                "#E5E9F0",
+                "#D8DEE9",
+                "#81A1C1",
+                "#5E81AC",
+                "#4C566A",
+            ],
         },
-
         "morandi": {
             "default_edge": "#f0f0f0",
             "default_fill": "#d9d9d9",
@@ -34,7 +44,6 @@ class ColorPaletteManager:
                 "#D6CFC7",
             ],
         },
-
         "economist": {
             "default_edge": "#0C0C0C",
             "default_fill": "#E9EDF0",
@@ -58,6 +67,5 @@ class ColorPaletteManager:
         Get palette configuration by name.
         """
         return ColorPaletteManager.palettes.get(
-            name,
-            ColorPaletteManager.palettes["nord"]
+            name, ColorPaletteManager.palettes["nord"]
         )

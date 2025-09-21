@@ -6,6 +6,7 @@ App startup/shutdown hooks.
 """
 
 import logging
+
 import matplotlib
 
 from taiwanviz.utils.fonts import register_all_fonts, set_default_zh_font

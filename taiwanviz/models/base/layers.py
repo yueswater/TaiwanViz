@@ -1,7 +1,9 @@
 from importlib.resources import files
-import geopandas as gpd
-from .base import BaseGeoLayer
 from typing import Dict, Tuple
+
+import geopandas as gpd
+
+from .base import BaseGeoLayer
 
 
 class CountyGeoLayer(BaseGeoLayer):
@@ -10,6 +12,7 @@ class CountyGeoLayer(BaseGeoLayer):
 
     Maps user data keyed by COUNTYNAME to the county-level geometry.
     """
+
     def map_data(self, data: Dict) -> gpd.GeoDataFrame:
         df = self.gdf.copy()
         df["value"] = df["COUNTYNAME"].map(data)
@@ -22,6 +25,7 @@ class TownGeoLayer(BaseGeoLayer):
 
     Maps user data keyed by TOWNNAME to the town-level geometry.
     """
+
     def map_data(self, data: Dict) -> gpd.GeoDataFrame:
         df = self.gdf.copy()
         df["value"] = df["TOWNNAME"].map(data)
@@ -34,6 +38,7 @@ class VillageGeoLayer(BaseGeoLayer):
 
     Maps user data keyed by VILLNAME to the village-level geometry.
     """
+
     def map_data(self, data: Dict) -> gpd.GeoDataFrame:
         df = self.gdf.copy()
         df["value"] = df["VILLNAME"].map(data)
@@ -58,5 +63,5 @@ def initialize_all_layers() -> Tuple[BaseGeoLayer]:
     return (
         CountyGeoLayer(county_path),
         TownGeoLayer(town_path),
-        VillageGeoLayer(village_path)
+        VillageGeoLayer(village_path),
     )

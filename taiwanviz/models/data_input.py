@@ -1,7 +1,8 @@
-from pydantic import BaseModel
 from typing import Dict
+
+from pydantic import BaseModel
+
 from taiwanviz.models.enums import AdminLevel, ColorPalette
-from taiwanviz.models.palette import ColorPaletteManager
 
 
 class MapDataInput(BaseModel):
@@ -17,6 +18,7 @@ class MapDataInput(BaseModel):
     palette : ColorPalette, default NORD
         Color palette used for rendering.
     """
+
     level: AdminLevel
     data: Dict[str, float]
     palette: ColorPalette = ColorPalette.NORD

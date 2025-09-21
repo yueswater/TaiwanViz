@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict
+
 import geopandas as gpd
 
 
@@ -15,8 +16,9 @@ class BaseGeoLayer(ABC):
 
     Subclasses must implement `map_data` to attach user-provided values.
     """
+
     shp_path: str
-    
+
     def __post_init__(self):
         # Load shapefile as GeoDataFrame in WGS84 CRS
         self.gdf = gpd.read_file(self.shp_path).to_crs(epsg=4326)

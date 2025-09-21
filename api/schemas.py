@@ -2,11 +2,11 @@
 Pydantic models (request/response schemas) for the API.
 """
 
-from typing import Dict, Optional, Tuple, Literal, Union
+from typing import Dict, Literal, Optional, Tuple, Union
+
 from pydantic import BaseModel, Field, field_validator
 
 from taiwanviz.models.enums import AdminLevel, ColorPalette
-
 
 LegendLoc = Literal[
     "right", "left", "upper right", "upper left", "lower right", "lower left"
@@ -19,6 +19,7 @@ class RenderConfigModel(BaseModel):
     """
     Render configuration mirror for ChoroplethRenderConfig with extras for API.
     """
+
     aspect: Literal["county", "town", "village"] = "county"
     show_inset: bool = True
     exclude_offshore: bool = True
@@ -38,9 +39,14 @@ class ChoroplethRequest(BaseModel):
     """
     Request payload for choropleth rendering.
     """
+
     level: AdminLevel = Field(..., description="Administrative level to render.")
-    data: Dict[str, float] = Field(..., description="Mapping from region name to numeric value.")
-    palette: Union[ColorPalette, str] = Field(ColorPalette.NORD, description="Color palette name.")
+    data: Dict[str, float] = Field(
+        ..., description="Mapping from region name to numeric value."
+    )
+    palette: Union[ColorPalette, str] = Field(
+        ColorPalette.NORD, description="Color palette name."
+    )
     config: Optional[RenderConfigModel] = Field(
         default=None, description="Optional rendering configuration overrides."
     )
@@ -61,6 +67,7 @@ class PaletteInfo(BaseModel):
     """
     Single palette information.
     """
+
     name: str
     default_edge: str
     default_fill: str
@@ -71,6 +78,7 @@ class PalettesResponse(BaseModel):
     """
     Response for listing available palettes.
     """
+
     palettes: list[PaletteInfo]
 
 
@@ -78,6 +86,7 @@ class FontsResponse(BaseModel):
     """
     Response for listing packaged fonts.
     """
+
     fonts: list[str]
     default_family: Optional[str] = None
 
@@ -86,4 +95,5 @@ class HealthResponse(BaseModel):
     """
     Health/heartbeat response.
     """
+
     status: str = "ok"

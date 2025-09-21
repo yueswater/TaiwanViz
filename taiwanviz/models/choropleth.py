@@ -1,27 +1,25 @@
-import numpy as np
-import geopandas as gpd
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-import matplotlib.cm as cm
 from dataclasses import dataclass, field
-from typing import Dict, Union, Literal
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from typing import Dict, Literal, Union
+
+import geopandas as gpd
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
 
 from taiwanviz.models.base.layers import initialize_all_layers
-from taiwanviz.models.palette import ColorPaletteManager
-from taiwanviz.models.enums import ColorPalette
 from taiwanviz.models.config import ChoroplethRenderConfig
+from taiwanviz.models.enums import ColorPalette
+from taiwanviz.models.palette import ColorPaletteManager
 from taiwanviz.utils import (
-    exclude_islands,
-    get_mainland,
-    get_kinmen,
-    get_matsu,
     compute_colors,
-    plot_mainland,
+    exclude_islands,
+    get_kinmen,
+    get_mainland,
+    get_matsu,
     plot_inset,
+    plot_mainland,
     register_all_fonts,
-    set_default_zh_font
+    set_default_zh_font,
 )
 
 
@@ -32,6 +30,7 @@ class ChoroplethMap:
     with data-driven coloring. Supports excluding offshore islands and adding insets
     for Kinmen, Matsu, and optionally other small regions.
     """
+
     level: Literal["county", "town", "village"]
     data: Dict
     palette_name: Union[str, ColorPalette]
@@ -65,7 +64,6 @@ class ChoroplethMap:
         # initialize fonts
         register_all_fonts()
         set_default_zh_font()
-
 
     def get_layer(self):
         """Return the GeoLayer object corresponding to the specified level."""
@@ -115,22 +113,54 @@ class ChoroplethMap:
                 matsu_focus = get_matsu(town_gdf)
 
                 town_values = town_gdf["value"]
-                town_colors = compute_colors(town_values, self.palette_colors, self.default_fill)
+                town_colors = compute_colors(
+                    town_values, self.palette_colors, self.default_fill
+                )
 
-                plot_inset(ax, matsu_focus, town_colors, "Matsu", "upper left", edgecolor=self.default_edge)
-                plot_inset(ax, kinmen_focus, town_colors, "Kinmen", "lower left", edgecolor=self.default_edge)
+                plot_inset(
+                    ax,
+                    matsu_focus,
+                    town_colors,
+                    "Matsu",
+                    "upper left",
+                    edgecolor=self.default_edge,
+                )
+                plot_inset(
+                    ax,
+                    kinmen_focus,
+                    town_colors,
+                    "Kinmen",
+                    "lower left",
+                    edgecolor=self.default_edge,
+                )
 
             else:
                 kinmen_focus = get_kinmen(gdf)
                 matsu_focus = get_matsu(gdf)
 
-                plot_inset(ax, matsu_focus, colors, "Matsu", "upper left", edgecolor=self.default_edge)
-                plot_inset(ax, kinmen_focus, colors, "Kinmen", "lower left", edgecolor=self.default_edge)
+                plot_inset(
+                    ax,
+                    matsu_focus,
+                    colors,
+                    "Matsu",
+                    "upper left",
+                    edgecolor=self.default_edge,
+                )
+                plot_inset(
+                    ax,
+                    kinmen_focus,
+                    colors,
+                    "Kinmen",
+                    "lower left",
+                    edgecolor=self.default_edge,
+                )
 
         # colorbar
         if config.show_legend and not values.dropna().empty:
             norm = mcolors.Normalize(vmin=values.min(), vmax=values.max())
-            cmap = mcolors.LinearSegmentedColormap.from_list("custom", self.palette_colors, N=256)
+            cmap = mcolors.LinearSegmentedColormap.from_list(
+                "custom", self.palette_colors, N=256
+            )
             sm = cm.ScalarMappable(cmap=cmap, norm=norm)
             sm.set_array([])
 

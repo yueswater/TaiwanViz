@@ -1,9 +1,11 @@
-import pandas as pd
-import numpy as np
 import matplotlib.colors as mcolors
+import numpy as np
+import pandas as pd
 
 
-def compute_colors(values: pd.Series, palette_list: list, default_fill: str = "lightgray") -> pd.Series:
+def compute_colors(
+    values: pd.Series, palette_list: list, default_fill: str = "lightgray"
+) -> pd.Series:
     """
     Map numeric values to colors using a continuous colormap.
 

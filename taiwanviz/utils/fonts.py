@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 import logging
-from typing import List
 from importlib.resources import files
+from typing import List
+
+import matplotlib.font_manager as fm
+import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.INFO)
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Tuple, Literal, Optional
+from typing import Literal, Optional, Tuple
 
 
 @dataclass
@@ -31,6 +31,7 @@ class ChoroplethRenderConfig:
         Position of the legend (e.g., "right", "left", "upper right",
         "lower left"). Passed to Matplotlib legend positioning logic.
     """
+
     aspect: Literal["county", "town", "village"] = "county"
     show_inset: bool = True
     exclude_offshore: bool = True
