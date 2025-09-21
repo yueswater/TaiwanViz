@@ -6,15 +6,15 @@ tree:
 	tree > tree.txt
 
 run:
-	$(POETRY) run uvicorn main:app --reload --app-dir src/ps_camp
+	$(POETRY) run uvicorn api.main:app --reload
 
 fmt:
-	$(POETRY) run autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r .
-	$(POETRY) run isort .
-	$(POETRY) run black .
+	$(POETRY) run autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r . --exclude="*/__init__.py,*/venv/*,*/.venv/*"
+	$(POETRY) run isort . --skip="__init__.py" --skip="venv" --skip=".venv"
+	$(POETRY) run black . --exclude="/(venv|\.venv|__init__\.py)/"
 
 lint:
-	$(POETRY) run flake8 .
+	$(POETRY) run flake8 . --exclude="*/__init__.py,venv/*,.venv/*"
 
 test:
 	$(POETRY) run pytest $(ARGS)
